@@ -1,5 +1,6 @@
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,11 +12,17 @@ import java.time.LocalDateTime;
  *
  * @author johannesriedmueller
  */
-public class Termin {
+public class Appointment {
     private String title;
     private LocalDateTime dateTime;
-
-    public Termin(String title, LocalDateTime dateTime) {
+    private static DateTimeFormatter dtf;
+    
+    static
+    {
+        dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm");
+    }
+    
+    public Appointment(String title, LocalDateTime dateTime) {
         this.title = title;
         this.dateTime = dateTime;
     }
@@ -34,6 +41,11 @@ public class Termin {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s --> %s", dtf.format(dateTime), title);
     }
     
     

@@ -8,13 +8,13 @@
  *
  * @author johannesriedmueller
  */
-public class TerminkalenderGUI extends javax.swing.JFrame {
+public class AppointmentGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TerminkalenderGUI
-     */
-    public TerminkalenderGUI() {
+    
+    private AppointmentBL bl = new AppointmentBL();
+    public AppointmentGUI() {
         initComponents();
+        liAll.setModel(bl);
     }
 
     /**
@@ -26,18 +26,47 @@ public class TerminkalenderGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu = new javax.swing.JPopupMenu();
+        menu = new javax.swing.JMenu();
+        miAdd = new javax.swing.JMenuItem();
+        miDelete = new javax.swing.JMenuItem();
+        miChange = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         liAll = new javax.swing.JList<>();
+
+        menu.setText("jMenu1");
+
+        miAdd.setText("hinzufügen");
+        miAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAddActionPerformed(evt);
+            }
+        });
+        menu.add(miAdd);
+
+        miDelete.setText("löschen");
+        miDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDeleteActionPerformed(evt);
+            }
+        });
+        menu.add(miDelete);
+
+        miChange.setText("ändern");
+        miChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miChangeActionPerformed(evt);
+            }
+        });
+        menu.add(miChange);
+
+        popupMenu.add(menu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         liAll.setBorder(javax.swing.BorderFactory.createTitledBorder("Termine"));
-        liAll.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         liAll.setToolTipText("");
+        liAll.setComponentPopupMenu(popupMenu);
         jScrollPane1.setViewportView(liAll);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -53,6 +82,22 @@ public class TerminkalenderGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void miAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddActionPerformed
+        AppointmentDialog dialog = new AppointmentDialog(this, true);
+        dialog.setVisible(true);
+        if(dialog.isOk()){
+            bl.add(dialog.getTermin());
+        }
+    }//GEN-LAST:event_miAddActionPerformed
+
+    private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miDeleteActionPerformed
+
+    private void miChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miChangeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miChangeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -71,26 +116,32 @@ public class TerminkalenderGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TerminkalenderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TerminkalenderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TerminkalenderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TerminkalenderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AppointmentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TerminkalenderGUI().setVisible(true);
+                new AppointmentGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> liAll;
+    private javax.swing.JList<Appointment> liAll;
+    private javax.swing.JMenu menu;
+    private javax.swing.JMenuItem miAdd;
+    private javax.swing.JMenuItem miChange;
+    private javax.swing.JMenuItem miDelete;
+    private javax.swing.JPopupMenu popupMenu;
     // End of variables declaration//GEN-END:variables
 }
