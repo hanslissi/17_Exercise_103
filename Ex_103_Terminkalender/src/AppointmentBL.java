@@ -20,6 +20,11 @@ public class AppointmentBL extends AbstractListModel<Appointment>{
         fireIntervalAdded(this, appointments.size()-1, appointments.size()-1);
     }
     
+    public void delete(int index){
+        appointments.remove(index);
+        fireIntervalRemoved(this, 0, appointments.size()-1);
+    }
+    
     @Override
     public int getSize() {
         return appointments.size();

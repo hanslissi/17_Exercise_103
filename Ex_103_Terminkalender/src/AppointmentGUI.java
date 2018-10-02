@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,7 +37,7 @@ public class AppointmentGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         liAll = new javax.swing.JList<>();
 
-        menu.setText("jMenu1");
+        menu.setText("Termin");
 
         miAdd.setText("hinzufügen");
         miAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -92,11 +95,21 @@ public class AppointmentGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_miAddActionPerformed
 
     private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
-        // TODO add your handling code here:
+        if(liAll.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Please select an item!");
+        }
+        else{
+            bl.delete(liAll.getSelectedIndex());
+        }
     }//GEN-LAST:event_miDeleteActionPerformed
 
     private void miChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miChangeActionPerformed
-        // TODO add your handling code here:
+        if(liAll.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null, "Please select an item!");
+        }
+        else{
+            bl.change(liAll.getSelectedIndex());
+        }
     }//GEN-LAST:event_miChangeActionPerformed
 
     /**
