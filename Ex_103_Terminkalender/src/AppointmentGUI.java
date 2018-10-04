@@ -1,4 +1,5 @@
 
+import java.io.File;
 import javax.swing.JOptionPane;
 
 /*
@@ -33,6 +34,9 @@ public class AppointmentGUI extends javax.swing.JFrame {
         miAdd = new javax.swing.JMenuItem();
         miDelete = new javax.swing.JMenuItem();
         miChange = new javax.swing.JMenuItem();
+        Seperator = new javax.swing.JPopupMenu.Separator();
+        miSave = new javax.swing.JMenuItem();
+        miLoad = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         liAll = new javax.swing.JList<>();
 
@@ -63,6 +67,23 @@ public class AppointmentGUI extends javax.swing.JFrame {
         menu.add(miChange);
 
         popupMenu.add(menu);
+        popupMenu.add(Seperator);
+
+        miSave.setText("Save");
+        miSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSaveActionPerformed(evt);
+            }
+        });
+        popupMenu.add(miSave);
+
+        miLoad.setText("Load");
+        miLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLoadActionPerformed(evt);
+            }
+        });
+        popupMenu.add(miLoad);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +138,22 @@ public class AppointmentGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_miChangeActionPerformed
 
+    private void miSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSaveActionPerformed
+        try {
+            bl.save(new File("./appointments.ser"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "There was a problem... Try again later!");
+        }
+    }//GEN-LAST:event_miSaveActionPerformed
+
+    private void miLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLoadActionPerformed
+        try {
+            bl.load(new File("./appointments.ser"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "There was a problem... Try again later!");
+        }
+    }//GEN-LAST:event_miLoadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -154,12 +191,15 @@ public class AppointmentGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSeparator Seperator;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Appointment> liAll;
     private javax.swing.JMenu menu;
     private javax.swing.JMenuItem miAdd;
     private javax.swing.JMenuItem miChange;
     private javax.swing.JMenuItem miDelete;
+    private javax.swing.JMenuItem miLoad;
+    private javax.swing.JMenuItem miSave;
     private javax.swing.JPopupMenu popupMenu;
     // End of variables declaration//GEN-END:variables
 }

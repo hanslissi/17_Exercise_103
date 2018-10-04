@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author johannesriedmueller
  */
-public class Appointment {
+public class Appointment implements Serializable{
     private String title;
     private LocalDateTime dateTime;
     private static DateTimeFormatter dtf;
