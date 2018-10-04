@@ -6,15 +6,14 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author johannesriedmueller
  */
 public class AppointmentGUI extends javax.swing.JFrame {
 
-    
     private AppointmentBL bl = new AppointmentBL();
+
     public AppointmentGUI() {
         initComponents();
         liAll.setModel(bl);
@@ -88,27 +87,33 @@ public class AppointmentGUI extends javax.swing.JFrame {
 
     private void miAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddActionPerformed
         AppointmentDialog dialog = new AppointmentDialog(this, true);
+        dialog.setToChange(false);
         dialog.setVisible(true);
-        if(dialog.isOk()){
+        if (dialog.isOk()) {
             bl.add(dialog.getTermin());
         }
     }//GEN-LAST:event_miAddActionPerformed
 
     private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
-        if(liAll.isSelectionEmpty()){
+        if (liAll.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select an item!");
-        }
-        else{
+        } else {
             bl.delete(liAll.getSelectedIndex());
         }
     }//GEN-LAST:event_miDeleteActionPerformed
 
     private void miChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miChangeActionPerformed
-        if(liAll.isSelectionEmpty()){
+        if (liAll.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select an item!");
-        }
-        else{
-            bl.change(liAll.getSelectedIndex());
+        } else {
+            AppointmentDialog dialog = new AppointmentDialog(this, true);
+            dialog.setToChange(true);
+            dialog.setTermin(bl.getElementAt(liAll.getSelectedIndex()));
+            dialog.setAllTextfields();
+            dialog.setVisible(true);
+            if (dialog.isOk()) {
+                bl.setAppointmentAtIndex(dialog.getTermin(), liAll.getSelectedIndex());
+            }
         }
     }//GEN-LAST:event_miChangeActionPerformed
 

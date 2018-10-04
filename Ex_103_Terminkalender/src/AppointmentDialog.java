@@ -1,17 +1,13 @@
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
-
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author johannesriedmueller
@@ -20,6 +16,15 @@ public class AppointmentDialog extends javax.swing.JDialog {
 
     private Appointment termin;
     private boolean ok;
+    private LocalDateTime dateTime;
+    private String text;
+    private boolean toChange;
+    private static DateTimeFormatter dtf;
+
+    static {
+        dtf = DateTimeFormatter.ofPattern("");
+    }
+
     public AppointmentDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -127,20 +132,53 @@ public class AppointmentDialog extends javax.swing.JDialog {
         return ok;
     }
 
+    public void setTermin(Appointment termin) {
+        this.termin = termin;
+    }
+
+    public void setToChange(boolean toChange) {
+        this.toChange = toChange;
+    }
+
+    public void setAllTextfields() {
+        tfDay.setText(Integer.toString(termin.getDateTime().getDayOfMonth()));
+        tfMonth.setText(Integer.toString(termin.getDateTime().getMonthValue()));
+        tfYear.setText(Integer.toString(termin.getDateTime().getYear()));
+        tfHour.setText(Integer.toString(termin.getDateTime().getHour()));
+        tfMinute.setText(Integer.toString(termin.getDateTime().getMinute()));
+        tfText.setText(termin.getTitle());
+    }
+
+
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
         ok = false;
         this.dispose();
     }//GEN-LAST:event_btCancelActionPerformed
 
     private void btOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOKActionPerformed
-        try{
-        termin = new Appointment(tfText.getText(), LocalDateTime.of(Integer.parseInt(tfYear.getText()), Integer.parseInt(tfMonth.getText())
-                , Integer.parseInt(tfDay.getText()), Integer.parseInt(tfHour.getText()), Integer.parseInt(tfMinute.getText())));
-        ok = true;
-        this.dispose();
-        }
-        catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Error with input!");
+        if (!toChange) {
+            try {
+                text = tfText.getText();
+                dateTime = LocalDateTime.of(Integer.parseInt(tfYear.getText()), Integer.parseInt(tfMonth.getText()),
+                        Integer.parseInt(tfDay.getText()), Integer.parseInt(tfHour.getText()), Integer.parseInt(tfMinute.getText()));
+                termin = new Appointment(text, dateTime);
+                ok = true;
+                this.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error with input!");
+            }
+        } else {
+            try{
+            text = tfText.getText();
+            dateTime = LocalDateTime.of(Integer.parseInt(tfYear.getText()), Integer.parseInt(tfMonth.getText()),
+                    Integer.parseInt(tfDay.getText()), Integer.parseInt(tfHour.getText()), Integer.parseInt(tfMinute.getText()));
+            termin = new Appointment(text, dateTime);
+            ok = true;
+            this.dispose();
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Error with input!");
+            }
         }
     }//GEN-LAST:event_btOKActionPerformed
 
