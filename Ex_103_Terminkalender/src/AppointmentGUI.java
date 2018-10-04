@@ -142,7 +142,7 @@ public class AppointmentGUI extends javax.swing.JFrame {
         try {
             bl.save(new File("./appointments.ser"));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "There was a problem... Try again later!");
+            JOptionPane.showMessageDialog(null, "There was a problem with the saving feature!");
         }
     }//GEN-LAST:event_miSaveActionPerformed
 
@@ -150,7 +150,7 @@ public class AppointmentGUI extends javax.swing.JFrame {
         try {
             bl.load(new File("./appointments.ser"));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "There was a problem... Try again later!");
+            JOptionPane.showMessageDialog(null, "There was a problem with the loading feature!");
         }
     }//GEN-LAST:event_miLoadActionPerformed
 
